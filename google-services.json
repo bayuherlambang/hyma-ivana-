@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "861131150168",
+    "firebase_url": "https://ivana-99a32.firebaseio.com",
+    "project_id": "ivana-99a32",
+    "storage_bucket": "ivana-99a32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861131150168:android:dd0ee7c3c844ce929f4b2d",
+        "android_client_info": {
+          "package_name": "id.ivana.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861131150168-al6g8ke19uh4d9u53co38a1787ahkuda.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8WkgO9wdGe1vp9pwh5C_OiUAK1tbSgqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861131150168-al6g8ke19uh4d9u53co38a1787ahkuda.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

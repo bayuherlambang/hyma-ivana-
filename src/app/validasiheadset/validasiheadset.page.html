@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Validasi Headset</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+<ion-content class="ion-padding">
+	<form [formGroup]="cekForm" (ngSubmit)="onSubmit()">
+    	<ion-item>
+			    <ion-label slot="start">Serial Number<br></ion-label>
+			    <ion-input formControlName="serialNumber" type="text" (ionChange)="checkStatus($event)" value={{scannedBarCode}}></ion-input>
+			    <ion-icon name="md-barcode" slot="end" (click)="scanBarCode()"></ion-icon>
+		</ion-item>
+		<p>{{status}}</p>
+		<ion-button type="submit">Submit</ion-button>
+		<ion-button (click)="reset()">Reset</ion-button>
+	</form>
+	<ion-list *ngIf="(headset | json) != ({} | json); else elseBlock">
+    	<ion-list-header>Data Headset</ion-list-header>
+			<ion-item *ngFor="let item of headset">
+				<ion-label>
+	        		<h2>Nama Pemilik : {{item.ownerBarang}}</h2>
+	        		<p>No Serial : {{item.serialNumber}}</p>
+	        		<p>Status Barang : {{item.statusBarang}}</p>
+	      		</ion-label>
+			</ion-item>
+  	</ion-list>
+    <ng-template #elseBlock>
+			<ion-label>
+        		<h2>Data tidak ada</h2>
+      		</ion-label>
+		</ng-template>
+</ion-content>

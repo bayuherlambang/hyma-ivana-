@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+          <ion-button color="dark" (click)="closeModal(false)">
+              <ion-icon name="close"></ion-icon>
+           </ion-button>
+      </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+	<form [formGroup]="formListBarang" (ngSubmit)="onSubmit(dataOrder['id'])">
+	  <span formArrayName="jenisBarang">
+	    <ion-card *ngFor="let jenisbarang of jenisBarang().controls; let jenisIndex=index">
+	      <ion-card-header>
+	        <ion-card-title>{{jenisbarang.get('namaBarang').value}}</ion-card-title>
+	      </ion-card-header>
+	      <ion-card-content>
+	        <span [formGroupName]="jenisIndex">
+	        	<span formArrayName="daftarBarang">
+	          	<ion-item *ngFor="let daftarBarang of listBarang(jenisIndex).controls; let barangIndex=index">
+	            	<span [formGroupName]="barangIndex">
+	            		<ion-item>
+		            		<ion-label slot="start">{{jenisbarang.get('namaBarang').value}} {{barangIndex+1}}</ion-label>
+		              	<ion-input type="text" formControlName="serialNumber" (ionChange)="checkStatus($event, jenisIndex, barangIndex)" value={{scannedBarCode[jenisIndex][barangIndex]}}></ion-input>
+		              	<ion-icon name="md-barcode" slot="end" (click)="scanBarCode(jenisIndex, barangIndex)"></ion-icon>
+	              	</ion-item>
+                  <div class="validation-errors">
+    	          		<span class="error-message">{{statusField[jenisIndex][barangIndex]}}</span>
+    	          	</div>
+	            	</span>
+	          	</ion-item>
+
+	        	</span>
+	        </span>
+	      </ion-card-content>
+	    </ion-card>
+	  </span>
+	  <ion-button type="submit" expand="block" [disabled]="sumbitDisabled">Submit</ion-button>
+	</form>
+</ion-content>

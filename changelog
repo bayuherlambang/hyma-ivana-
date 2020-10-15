@@ -1,0 +1,12 @@
+ver 1.0.0
+  -Release
+ver 1.0.1
+  bug fix:
+  - perbaikan jumlah barang NaN pada halaman stock Opname
+  - perbaikan login page agar tidak bisa di swipe back
+  - set lebar kolom pada tabel stock opname
+  what's new:
+  - search by owner (domain) di halaman stock
+  - set tampilan untuk device dengan layar kecil
+  - ubah warna logo dan dashboard
+  - menambahkan text copyright di halaman dashboard

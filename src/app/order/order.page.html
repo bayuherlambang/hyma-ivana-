@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Peminjaman</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Memuat ulang...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-searchbar showcancelbutton=""
+  (ionChange)="filterList($event)">
+  </ion-searchbar>
+    <ion-segment scrollable [(ngModel)]="selectedStatusOrder" (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="all">
+        Semua
+      </ion-segment-button>
+      <ion-segment-button value="waiting">
+        Menunggu
+      </ion-segment-button>
+      <ion-segment-button value="complete">
+        Selesai
+      </ion-segment-button>
+     </ion-segment>
+
+
+	<ion-list>
+    	<span *ngIf="(orders | json) != ({} | json); else elseBlock">
+			<ion-item *ngFor="let item of orders">
+				<ion-label (click)="detail(item)">
+	        		<h2>Nama peminjam : {{item.namaPeminjam}}</h2>
+	        		<p>ID peminjamanan : {{item.id}}</p>
+	        		<p>Tanggal peminjamanan : {{item.createdAt}}</p>
+	        		<p>Status peminjaman : {{item.status}}</p>
+	      		</ion-label>
+			</ion-item>
+		</span>
+		<ng-template #elseBlock>
+			<ion-label>
+        		<h2>Anda belum melakukan peminjaman</h2>
+      		</ion-label>
+		</ng-template>
+  	</ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    	<ion-fab-button (click)="addPeminjaman()">
+      		<ion-icon name="add"></ion-icon>
+    	</ion-fab-button>
+  	</ion-fab>
+</ion-content>

@@ -1,0 +1,21 @@
+.logo {
+   display: flex;
+   flex-wrap: wrap;
+   padding: 13% 23% 11% 23%;
+
+}
+.invisibleButton {
+    height:10px;
+    width:40px;
+}
+.logoimg{
+  position: relative;
+  width: 100%;
+  height: 50%;
+}
+
+.logoimg {
+  content: "";
+  display: block;
+  padding-bottom: 0px;
+}

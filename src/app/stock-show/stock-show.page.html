@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+          <ion-button color="dark" (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+           </ion-button>
+      </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+	  <ion-card-header>
+	    <ion-card-title>Data Barang</ion-card-title>
+	  </ion-card-header>
+	  <ion-card-content>
+		<ion-item>
+			<h3>Serial Number : {{stock.serialNumber}}</h3>
+		</ion-item>
+    <ion-item>
+      <p>Nama Barang : {{stock.namaBarang}}</p>
+		</ion-item>
+    <ion-item>
+      <p>Jenis Barang : {{stock.jenisBarang}}</p>
+		</ion-item>
+    <ion-item>
+      <p>Kondisi Barang : {{stock.kondisiBarang}}</p>
+    </ion-item>
+    <ion-item>
+      <p>Status Barang : {{stock.statusBarang}}</p>
+    </ion-item>
+
+    <!-- <ion-item>
+      <p>Diinput oleh : {{stock.createdBy}}</p>
+    </ion-item>
+    <ion-item>
+      <p>Diinput pada : {{stock.createdAt}}</p>
+    </ion-item>
+    <ion-item>
+      <p>Diupdate oleh : {{stock.updatedBy}}</p>
+    </ion-item>
+    <ion-item>
+      <p>Diupdate pada : {{stock.updatedAt}}</p>
+    </ion-item> -->
+	  </ion-card-content>
+	</ion-card>
+  <ion-card>
+	  <ion-card-header>
+	    <ion-card-title>Log Barang</ion-card-title>
+	  </ion-card-header>
+	  <ion-card-content *ngFor="let item of logUser">
+      <ion-list>
+    		<ion-item>
+    			<h3>Tanggal : {{item.tanggal}}</h3>
+    		</ion-item>
+        <ion-item>
+          <p>Status Barang : {{item.status}}</p>
+    		</ion-item>
+        <ion-item>
+          <p>User : {{item.user}}</p>
+    		</ion-item>
+      </ion-list>
+	  </ion-card-content>
+	</ion-card>
+
+</ion-content>

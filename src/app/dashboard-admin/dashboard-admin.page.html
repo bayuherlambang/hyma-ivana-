@@ -1,0 +1,95 @@
+<ion-header>
+	<ion-toolbar>
+        <ion-title>Dashboard</ion-title>
+        <ion-buttons slot="primary">
+        	<ion-icon name="exit"></ion-icon>
+          	<ion-button class="logout" (click)="logout()"></ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+	<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Memuat ulang...">
+    </ion-refresher-content>
+  </ion-refresher>
+	<div class="wrapperDashboard">
+		<div class="dashboardTitle">
+			<h4>Total Stok</h4>
+		</div><br>
+		<div class="box" *ngFor="let item of Barang" >
+			<h2>{{item.jumlahBarang}}</h2>
+			<p>{{item.jenisBarang}}</p>
+		</div>
+	</div>
+	<div class="wrapperDashboard">
+		<div class="dashboardTitle">
+			<h4>Total Peminjaman</h4>
+		</div><br>
+		<div class="box" *ngFor="let item of order" >
+			<h2>{{item.jumlah}}</h2>
+			<p>{{item.status}}</p>
+		</div>
+	</div>
+	<div class="wrapperMenu">
+      	<div class="box default" (click)="stockPage()">
+         	<ion-icon name="cube"></ion-icon>
+         	<p>Manajemen Stok</p>
+      	</div>
+      	<div class="box default" (click)="orderPage()">
+         	<ion-icon name="list-box"></ion-icon>
+         	<p>Daftar Peminjaman</p>
+      	</div>
+      	<div class="box default" (click)="logPeminjaman()">
+         	<ion-icon name="copy"></ion-icon>
+         	<p>Log Peminjaman</p>
+      	</div>
+      	<div class="box default" (click)="stockOpname()">
+         	<ion-icon name="clipboard"></ion-icon>
+         	<p>Report Stock Opname</p>
+      	</div>
+      	<div class="box default" (click)="barangMasuk()">
+         	<ion-icon name="arrow-round-down"></ion-icon>
+         	<p>Barang Masuk</p>
+      	</div>
+      	<div class="box default" (click)="barangKeluar()">
+         	<ion-icon name="arrow-round-up"></ion-icon>
+         	<p>Barang Keluar</p>
+      	</div>
+      	<div class="box default" (click)="validasiHeadset()">
+         	<ion-icon name="headset"></ion-icon>
+         	<p>Validasi Headset</p>
+      	</div>
+				<div class="box default" (click)="validasiHeadset()">
+         	<ion-icon name="headset"></ion-icon>
+         	<p>Data PC</p>
+      	</div>
+				<!-- <div class="box default" (click)="importfile()">
+         	<ion-icon name="folder-open"></ion-icon>
+         	<p>Import File</p>
+      	</div> -->
+  </div>
+	<div class="subTitle">
+		<p><b>Ivana</b> Ver 1.0.1 Beta Release (2020)</p>
+		<p>Developed by IT HaloBCA SMG2</p>
+		<p>Mitracomm Ekasarana - BCA</p>
+	</div>
+
+</ion-content>
+
+
+<!--   <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        Welcome to Dashboard Admin!
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        Your Registered EmailID : {{userEmail}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>   -->

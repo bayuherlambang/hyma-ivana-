@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Memuat ulang...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <ion-item>
+        <ion-searchbar showcancelbutton="" [(ngModel)]="searchQuery" (ionChange)="filterList($event)" value={{scannedBarCode}} placeholder="Cari Barcode / Owner"></ion-searchbar>
+        <ion-icon name="md-barcode" slot="end" (click)="scanBarCode()"></ion-icon>
+  </ion-item>
+  <ion-segment scrollable [(ngModel)]="selectedJenisBarang" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="all">
+      Semua
+    </ion-segment-button>
+     <ion-segment-button *ngFor="let item of jenisBarangOption" value="{{item}}">
+       {{item}}
+     </ion-segment-button>
+   </ion-segment>
+	<ion-list>
+    		 <ion-item-sliding *ngFor="let item of stocks">
+    			<ion-item (click)="openStockShowModal(item)">
+    				<ion-label>
+      				<h2>{{item.serialNumber}}</h2>
+      				<p>{{item.jenisBarang}}</p>
+      				<p>{{item.statusBarang}}</p>
+      				</ion-label>
+    			</ion-item>
+    			<ion-item-options *ngIf="isAdmin == true">
+			        <button ion-button color="primary" icon-left (click)="openEditStockModal(item)">
+			         	<ion-icon name="ios-create"></ion-icon>Edit
+			        </button>
+			        <button ion-button color="danger" icon-left (click)="deleteStock(item.id)">
+			          <ion-icon name="ios-trash"></ion-icon>Delete
+			        </button>
+			    </ion-item-options>
+    		</ion-item-sliding>
+  	</ion-list>
+
+    <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isAdmin == true">
+    	<ion-fab-button (click)="openAddStockModal()">
+      		<ion-icon name="add"></ion-icon>
+    	</ion-fab-button>
+  	</ion-fab> -->
+</ion-content>

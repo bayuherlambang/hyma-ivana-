@@ -1,0 +1,175 @@
+// IF the browser does NOT support the  CSS Grid Layout specification
+// We rely on the use of the CSS Flexbox standard instead
+.wrapper {
+   display: flex;
+   flex-wrap: wrap;
+}
+
+
+// IF the browser DOES support the CSS Grid Layout specification
+// then the following rules are applied instead
+.wrapperMenu {
+   display: grid;
+
+   // Define a 10 pixel gap between each grid track
+   grid-gap: 13px 7px;
+
+   // Define a rule, that will be repeated for each grid column, where
+   // the grid track is set to a minimum width of 300 pixels and a maximum
+   // width of the available space within the grid container (via the fr or
+   // fraction unit)
+
+   // The auto-fill value allows as many grid tracks to be fitted into the
+   // width of the grid container as possible
+   grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+
+   // Specify the height of the row - minimum value of 50 pixels and a maximum
+   // value set to auto
+   grid-auto-rows: minmax(117px, auto);
+
+}
+.wrapperDashboard {
+   display: flex;
+   flex-wrap: wrap;
+   // Define a 10 pixel gap between each grid track
+   grid-gap: 10px;
+
+   // Define a rule, that will be repeated for each grid column, where
+   // the grid track is set to a minimum width of 300 pixels and a maximum
+   // width of the available space within the grid container (via the fr or
+   // fraction unit)
+
+   // The auto-fill value allows as many grid tracks to be fitted into the
+   // width of the grid container as possible
+   grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+
+   // Specify the height of the row - minimum value of 50 pixels and a maximum
+   // value set to auto
+   grid-auto-rows: minmax(110px, auto);
+   //margin-bottom: 19px;
+   background-color: #4185b44d;
+   border-radius: 10px;
+   margin: 11px 0 11px 0;
+}
+.dashboardTitle{
+  flex-basis: 100%;
+  padding: 5px 0px 0px 13px;
+}
+
+// Define the header/footer tag values
+header,
+footer {
+   padding: 3em;
+   margin-left: 5px;
+   margin-right: 5px;
+   // Add a flex rule for browsers not supporting the
+   // CSS Grid Layout spec
+   flex: 0 1 100%;
+   // Define the start and end values for the grid column
+   grid-column: 1 / -1;
+   text-align: center;
+   background-color: rgba(175, 186, 202, 1);
+}
+
+
+// Define the style rules for each panel within the grid
+// container
+.box {
+  display: inline;
+  text-align: center;
+  border-radius: 10px;
+  padding: 1px 1px 0px 1px;
+  margin-left: 5px;
+  margin-right: 5px;
+  // Add a flex rule for browsers not supporting the
+  // CSS Grid Layout spec
+  flex: 1 1 50px;
+  h2 {
+      font-weight: bold;
+  }
+  ion-icon{
+      font-size : 3em;
+      padding-top: 10px;
+  }
+  p{
+    //font-weight: 550;
+    margin-top: 3px;
+    font-size: 0.9em;
+  }
+}
+
+
+// We need to ensure that browsers that fall back to the
+// Flexbox rules add a bottom margin of 10 pixels to all
+// direct child elements within the grid container (to
+// emulate the grid gap)
+.wrapper > * {
+  margin-bottom: 10px;
+}
+
+
+// Use a feature query to determine if the browser supports
+// a specific CSS rule - in this case the display: grid property
+
+// If the rule is supported then we remove the flexbox fallback
+// rule of adding 10 pixels to the bottom margin of each child
+// decendent of the grid container (to emulate the grid gap)
+@supports (display: grid) {
+  .wrapper > * {
+    margin: 0;
+  }
+}
+
+
+.logout{
+  font-size: 3em;
+}
+// Add the necessary classes for styling the
+// background colours of each panel in the
+// project UI
+.red {
+	background-color: rgba(220, 83, 81, 1);
+}
+
+.green {
+	background-color: rgba(187, 225, 123, 1);
+}
+
+.blue {
+	background-color: rgba(131, 150, 225, 1);
+}
+
+.purple {
+	background-color: rgba(155, 121, 170, 1);
+}
+
+.yellow {
+    background-color: rgba(235, 229, 39, 1);
+}
+
+.violet {
+    background-color: rgba(213, 118, 211, 1);
+}
+
+.orange {
+	background-color: rgba(213, 151, 46, 1);
+}
+
+.turquoise {
+	background-color: rgba(105, 203, 217, 1);
+}
+.default{
+  background-color: #72809b3d;
+}
+
+
+.subTitle{
+  padding: 8% 0% 2% 0%;
+  text-align: center;
+  bottom:0;
+  p{
+    font-size: 0.9em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}

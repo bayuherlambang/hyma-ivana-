@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Log Peminjaman</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+	<form [formGroup]="logForm" (ngSubmit)="onSubmit()">
+    	<ion-item>
+		    <ion-label position="stacked">Start<br></ion-label>
+		    <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Select Date" formControlName="start"></ion-datetime>
+		 </ion-item>
+		 <ion-item>
+		    <ion-label position="stacked">End<br></ion-label>
+		    <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Select Date" formControlName="end"></ion-datetime>
+		 </ion-item>
+		 <div class="validation-errors">
+	         <span class="error-message ion-padding">{{status}}</span>
+	     </div>
+		 <ion-button type="submit" [disabled]="sumbitDisabled">Submit</ion-button>
+	</form>
+	<ion-list *ngIf="(dataOrder | json) != ({} | json); else elseBlock">
+    	<ion-list-header>Order List</ion-list-header>
+			<ion-item *ngFor="let item of dataOrder">
+				<ion-label (click)="detail(item)">
+	        		<h2>Nama peminjam : {{item.namaPeminjam}}</h2>
+	        		<p>ID peminjamanan : {{item.id}}</p>
+	        		<p>Tanggal peminjamanan : {{item.createdAt}}</p>
+	        		<p>Status peminjaman : {{item.status}}</p>
+	      		</ion-label>
+			</ion-item>
+  	</ion-list>
+    <ng-template #elseBlock>
+			<ion-label>
+        		<h2>Data tidak ada</h2>
+      		</ion-label>
+		</ng-template>
+</ion-content>

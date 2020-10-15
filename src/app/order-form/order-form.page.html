@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+          <ion-button color="dark" (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+      </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+	<form [formGroup]="formDataPinjam" (ngSubmit)="onSubmit()">
+    <!-- <ion-item>
+      <ion-label floating>Username</ion-label>
+      <ion-input type="number" formControlName="namaPeminjam"></ion-input>
+    </ion-item> -->
+    <span formArrayName="listRequest">
+	<ion-row *ngFor="let request of listRequest().controls; let listIndex=index" flex-wrap: nowrap>
+		<span [formGroupName]="listIndex">
+        <ion-row>
+        	<ion-col col-6>
+	          <ion-item>
+	            <ion-label floating>Pilih jenis barang</ion-label>
+	            <ion-select formControlName="jenisBarang">
+					<ion-select-option *ngFor="let item of dataJenisBarang" [value]="item.jenisBarang">{{item.jenisBarang}}</ion-select-option>
+				</ion-select>
+	          </ion-item>
+	        </ion-col>
+	        <ion-col col-3>
+	          <ion-item class="padding-left-2px">
+	            <ion-label floating>Jumlah barang</ion-label>
+	            <ion-input type="number" formControlName="jumlahBarang"></ion-input>
+	            <ion-icon (click)="removeListRequest(listIndex)" name="close-circle"></ion-icon>
+	          </ion-item>
+	        </ion-col>
+    	</ion-row>
+    	</span>
+     </ion-row>
+ 	</span>
+ 	<ion-button expand="block" type="submit" [disabled]="!formDataPinjam.valid">Submit</ion-button>
+	</form>
+	<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    	<ion-fab-button (click)="addListRequest()">
+      		<ion-icon name="add"></ion-icon>
+    	</ion-fab-button>
+  	</ion-fab>
+  </ion-content>

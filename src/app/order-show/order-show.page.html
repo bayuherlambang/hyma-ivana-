@@ -1,0 +1,118 @@
+<ion-header>
+  <ion-toolbar>
+  	<ion-buttons slot="end">
+          <ion-button color="dark" (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+      </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+	<ion-card>
+	  <ion-card-header>
+	    <ion-card-title>{{dataOrder.namaPeminjam}}</ion-card-title>
+	  </ion-card-header>
+
+	  <ion-card-content>
+	    Tanggal Request : {{dataOrder.createdAt}}<br>
+	    Status : {{dataOrder.status}}
+	  </ion-card-content>
+	</ion-card>
+	<ion-card>
+	  <ion-card-header>
+	    <ion-card-title>List Request</ion-card-title>
+	  </ion-card-header>
+	  <ion-card-content>
+		<ion-item *ngFor="let item of listRequest">
+			<h2>{{item.jenisBarang}} : </h2>
+			<h3>{{item.jumlahBarang}}</h3>
+		</ion-item>
+	  </ion-card-content>
+	</ion-card>
+	<ion-card>
+	  <ion-card-header>
+	    <ion-card-title>List Barang</ion-card-title>
+	  </ion-card-header>
+	  <ion-card-content>
+		<ion-item *ngFor="let item of dataPinjam">
+			<h3>{{item.serialNumber}}</h3>
+		</ion-item>
+	  </ion-card-content>
+	</ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Log Status</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let item of logStatus">
+      <ion-list>
+        <ion-item>
+          <h3>Tanggal : {{item.tanggal}}</h3>
+        </ion-item>
+        <ion-item>
+          <p>Status : {{item.status}}</p>
+        </ion-item>
+        <ion-item>
+          <p>User : {{item.user}}</p>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+	<span *ngIf="isAdmin===true;">
+    <!--
+
+    Logged  -> user
+    |
+    Menyiapkan Barang -> admin desk
+    |
+    Barang Siap -> admin stock
+    |
+    Request Pengembalian -> user
+    |
+    Terima Barang -> admin desk
+    |
+    Selesai (confirmed) -> admin stock
+
+    -->
+		<span *ngIf="dataOrder.status==='Logged'">
+      <span *ngIf="role==='desk'">
+		      <ion-button expand="block" (click)="prosesOrder(dataOrder.id)">Proses Order</ion-button>
+      </span>
+      <span *ngIf="role==='stock'">
+		      <ion-button expand="block" (click)="prosesOrder(dataOrder.id)" [disabled]="true">Proses Order</ion-button>
+      </span>
+		</span>
+    <span *ngIf="dataOrder.status==='Menyiapkan Barang'">
+      <span *ngIf="role==='desk'">
+		       <ion-button expand="block" (click)="barangSiap(listRequest, dataOrder)" [disabled]="true">Barang Siap</ion-button>
+      </span>
+      <span *ngIf="role==='stock'">
+           <ion-button expand="block" (click)="barangSiap(listRequest, dataOrder)">Barang Siap</ion-button>
+      </span>
+		</span>
+		<span *ngIf="dataOrder.status==='Request Pengembalian'">
+      <span *ngIf="role==='desk'">
+          <ion-button expand="block" (click)="terimaBarang(dataOrder.id)">Terima Barang</ion-button>
+      </span>
+      <span *ngIf="role==='stock'">
+          <ion-button expand="block" (click)="terimaBarang(dataOrder.id)" [disabled]="true">Terima Barang</ion-button>
+      </span>
+		    <!--  -->
+		</span>
+    <span *ngIf="dataOrder.status==='Terima Barang'">
+      <span *ngIf="role==='desk'">
+          <ion-button expand="block" (click)="orderSelesai(dataOrder.id)" [disabled]="true">Selesai Peminjaman</ion-button>
+      </span>
+      <span *ngIf="role==='stock'">
+          <ion-button expand="block" (click)="orderSelesai(dataOrder.id)">Selesai Peminjaman</ion-button>
+      </span>
+		    <!-- <ion-button expand="block" (click)="orderSelesai(dataOrder.id)">Selesai Peminjaman</ion-button> -->
+		</span>
+	</span>
+	<span *ngIf="userEmail===dataOrder.namaPeminjam;">
+		<span *ngIf="dataOrder.status==='Barang Siap'">
+		<ion-button expand="block" (click)="requestPengembalian(dataOrder.id)">Request Pengembalian</ion-button>
+		</span>
+	</span>
+</ion-content>

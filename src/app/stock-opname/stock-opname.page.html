@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Stock Opname</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="stockOpnameForm" (ngSubmit)="onSubmit()">
+    	<ion-item>
+		    <ion-label position="stacked">Start<br></ion-label>
+		    <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Select Date" formControlName="start"></ion-datetime>
+		 </ion-item>
+		 <ion-item>
+		    <ion-label position="stacked">End<br></ion-label>
+		    <ion-datetime displayFormat="DD/MM/YYYY" placeholder="Select Date" formControlName="end"></ion-datetime>
+		 </ion-item>
+     <ion-item>
+   	    <ion-label position="stacked">Pilih Jenis Barang</ion-label>
+   	    <ion-select formControlName="jenisBarang">
+   			<ion-select-option *ngFor="let item of jenisBarang" [value]="item.jenisBarang">{{item.jenisBarang}}</ion-select-option>
+   		</ion-select>
+   	</ion-item>
+		 <ion-button type="submit" [disabled]="!stockOpnameForm.valid">Submit</ion-button>
+	</form>
+
+	<div class="validation-errors">
+  		<span class="error-message ion-padding">{{status}}</span>
+  	</div>
+	<ngx-datatable class="fullscreen" [ngClass]="tablestyle" [rows]="stockOpname" [sortType]="'multi'" [reorderable]="true" [scrollbarH]="true" [columns]="columns">
+	    <!-- <ngx-datatable-column name="Tanggal"></ngx-datatable-column>
+	    <ngx-datatable-column name="Masuk"></ngx-datatable-column>
+	    <ngx-datatable-column name="Keluar"></ngx-datatable-column>
+	    <ngx-datatable-column name="Jumlah"></ngx-datatable-column>
+	    <ngx-datatable-column name="Keterangan"></ngx-datatable-column> -->
+  </ngx-datatable>
+</ion-content>

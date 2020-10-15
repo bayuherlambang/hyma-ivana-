@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+	<span *ngIf="preAddFromShow==true">
+	<form [formGroup]="preAddForm">
+		<ion-item>
+		    <ion-label position="stacked">Keperluan Barang</ion-label>
+		    <ion-select formControlName="selectedKeperluanBarang">
+				<ion-select-option *ngFor="let item of keperluan" [value]="item.keperluanBarang">{{item.keperluanBarang}}</ion-select-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+		    <ion-label position="stacked">Jenis Barang</ion-label>
+		    <ion-select formControlName="selectedJenisBarang">
+				<ion-select-option *ngFor="let item of jenisBarang" [value]="item.jenisBarang">{{item.jenisBarang}}</ion-select-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+		    <ion-label position="stacked">Jumlah Barang</ion-label>
+		    <ion-input formControlName="jumlahBarang" type="number"></ion-input>
+		</ion-item>
+	</form>
+	 <ion-button expand="block" (click)="submitPreAdd()" [disabled]="!preAddForm.valid">Scan Barang</ion-button>
+   <!-- <ion-button expand="block" (click)="importfile()" [disabled]="!preAddForm.valid">Import File</ion-button>
+   <ion-button (click)="cobaprogress()">test progress</ion-button> -->
+	</span>
+
+	<span *ngIf="showlist==true">
+		<form [formGroup]="formListBarang" (ngSubmit)="submitBarang()">
+		  <span formArrayName="listBarang">
+		    <span *ngFor="let item of listBarang().controls; let jenisIndex=index">
+		    	<span [formGroupName]="jenisIndex">
+		      	<ion-item>
+	        		<ion-label slot="start">SN Barang {{jenisIndex+1}}</ion-label>
+	          		<ion-input type="text" formControlName="serialNumber" value={{scannedBarCode[jenisIndex]}} (ionChange)="checkStatus($event)"></ion-input>
+	          		<ion-icon name="md-barcode" slot="end" (click)="scanBarCode(jenisIndex)"></ion-icon>
+	      		</ion-item>
+	      		<ion-item *ngIf="selectedKeperluanBarang=='Agent Baru'">
+	        		<ion-label slot="start">Owner {{jenisIndex+1}}</ion-label>
+	          		<ion-input type="text" formControlName="owner"></ion-input>
+	      		</ion-item>
+	      		</span>
+		    </span>
+		    <div class="red">
+	          	<span class="error-message ion-padding">{{statusError}}</span>
+	      </div>
+        <div class="green">
+	          	<span class="error-message ion-padding">{{statusSucces}}</span>
+	      </div>
+		  </span>
+		  <ion-button type="submit" expand="block" [disabled]="!formListBarang.valid">Submit</ion-button>
+		</form>
+	</span>
+  <span *ngIf="showuploadform==true">
+    <ion-card>
+  	  <ion-card-header>
+  	    <ion-card-title>Import File</ion-card-title>
+  	  </ion-card-header>
+  	  <ion-card-content>
+  			<p>Pastikan format data sudah sesuai dengan contoh capture berikut.</p>
+        <ion-item>
+          <ion-label>
+            Agent Baru
+          </ion-label>
+          <img src="../../assets/img/keluarnewcco.PNG" class="images">
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Retur / Rusak
+          </ion-label>
+          <img src="../../assets/img/barangmasuk.PNG" class="images">
+        </ion-item>
+
+
+        <input type="file"  (change)="uploadFile($event.target.files)">
+        <ion-button (click)="uploadjson()" [disabled]="uploadButton == false">Upload</ion-button>
+
+  	  </ion-card-content>
+  	</ion-card>
+	</span>
+</ion-content>

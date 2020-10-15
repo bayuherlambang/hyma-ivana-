@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+          <ion-button color="dark" (click)="closeModal()">
+              <ion-icon name="close"></ion-icon>
+           </ion-button>
+      </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+    <span *ngIf="!isEdit; else elseBlock">
+    	<form [formGroup]="addForm">
+	    	<ion-item>
+			    <ion-label slot="start">Serial Number<br></ion-label>
+			    <ion-input formControlName="serialNumber" type="text" (ionBlur)="checkStatus($event)" value={{scannedBarCode}}></ion-input>
+			    <ion-icon clear name="md-barcode" slot="end" (click)="scanBarCode()"></ion-icon>
+			  </ion-item>
+        <div class="validation-errors">
+        <span class="error-message ion-padding">{{status}}</span>
+        </div>
+			  <ion-item>
+			    <ion-label position="stacked">Nama Barang</ion-label>
+			    <ion-input formControlName="namaBarang" type="text"></ion-input>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Detail Barang</ion-label>
+			    <ion-input formControlName="detailBarang" type="text"></ion-input>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Owner Barang</ion-label>
+			    <ion-input formControlName="ownerBarang" type="text"></ion-input>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Jenis Barang</ion-label>
+			    <ion-select formControlName="selectedJenisBarang">
+					<ion-select-option *ngFor="let item of jenisBarang" [value]="item.jenisBarang">{{item.jenisBarang}}</ion-select-option>
+				</ion-select>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Kondisi Barang</ion-label>
+			    <ion-select formControlName="selectedKondisiBarang">
+					<ion-select-option *ngFor="let itemKondisi of kondisiBarang" [value]="itemKondisi.kondisiBarang">{{itemKondisi.kondisiBarang}}</ion-select-option>
+				</ion-select>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Status Barang</ion-label>
+			    <ion-select formControlName="selectedStatusBarang">
+					<ion-select-option *ngFor="let itemStatus of statusBarang" [value]="itemStatus.namaStatus">{{itemStatus.namaStatus}}</ion-select-option>
+				</ion-select>
+			  </ion-item>
+		</form>
+	  	<ion-button expand="block" (click)="addStock()" [disabled]="!addForm.valid" [disabled]="sumbitDisabled">Tambah Barang</ion-button>
+	 </span>
+	 <ng-template #elseBlock>
+	  	<form [formGroup]="editForm">
+	    	<ion-item>
+			    <ion-label position="stacked">Serial Number<br></ion-label>
+			    <ion-input formControlName="serialNumber" type="text"></ion-input>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Nama Barang</ion-label>
+			    <ion-input formControlName="namaBarang" type="text"></ion-input>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Detail Barang</ion-label>
+			    <ion-input formControlName="detailBarang" type="text"></ion-input>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Owner Barang</ion-label>
+			    <ion-input formControlName="ownerBarang" type="text"></ion-input>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Jenis Barang</ion-label>
+			    <ion-select formControlName="selectedJenisBarang">
+					<ion-select-option *ngFor="let item of jenisBarang">{{item.jenisBarang}}</ion-select-option>
+				</ion-select>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Kondisi Barang</ion-label>
+			    <ion-select formControlName="selectedKondisiBarang">
+					<ion-select-option *ngFor="let itemKondisi of kondisiBarang">{{itemKondisi.kondisiBarang}}</ion-select-option>
+				</ion-select>
+			  </ion-item>
+			  <ion-item>
+			    <ion-label position="stacked">Status Barang</ion-label>
+			    <ion-select formControlName="selectedStatusBarang">
+					<ion-select-option *ngFor="let itemStatus of statusBarang">{{itemStatus.namaStatus}}</ion-select-option>
+				</ion-select>
+			  </ion-item>
+		</form>
+	  <ion-button expand="block" (click)="UpdateStock(item)" [disabled]="!editForm.valid">Update Barang</ion-button>
+	  </ng-template>
+</ion-content>
